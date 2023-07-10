@@ -1,10 +1,9 @@
-import sqlalchemy
-
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
+from flask_sqlalchemy import SQLAlchemy
 
 
 
@@ -23,5 +22,18 @@ def after_request(response):
     return response
 
 @app.route("/")
+@login_required
 def hello():
     return "Hello World!"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    #Clear session
+    session.clear()
+
+    if request.method == "POST":
+        return render_template("index.html")
+    else:
+        return render_template("login.html")
+    
