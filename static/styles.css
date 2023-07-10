@@ -9,8 +9,19 @@
     font-size: xx-large;
 }
 
+.nav-link {
+    color: rgb(155, 165, 168);
+    text-decoration: none;
+    font-size: large;
+    text-align: right;
+}
+
 a {
     text-decoration: none;
+}
+
+a:hover {
+    color: rgb(113, 120, 122);
 }
 
 body {
