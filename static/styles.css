@@ -1,0 +1,18 @@
+.navLogo {
+    color: rgb(227, 227, 227);
+    text-decoration: none;
+    font-size: xx-large;
+}
+#A {
+    color: rgb(150, 56, 56);
+    text-decoration: none;
+    font-size: xx-large;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: rgb(87, 96, 99);
+}
