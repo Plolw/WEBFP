@@ -1,1 +1,1 @@
-print("Hel")
+from flask import Flask
