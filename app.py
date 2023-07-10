@@ -34,9 +34,8 @@ def after_request(response):
     return response
 
 @app.route("/")
-@login_required
 def hello():
-    return render_template("index.html")
+    return render_template("layout.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -45,7 +44,6 @@ def login():
     session.clear()
 
     if request.method == "POST":
-
         return render_template("index.html")
     else:
         return render_template("login.html")
