@@ -10,11 +10,14 @@
             <input autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required maxlength="20">
         </div>
         <div>
-            <input autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20" onkeyup="check();">
+            <input autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20">
         </div>
         <div>
-            <input autocomplete="off" id="confirm_password" name="confirm_password" placeholder="Confirm password" type="password" required maxlength="20" onkeyup="check();">
-            <p id="message"></p>
+            <input autocomplete="off" id="confirm_password" name="confirm_password" placeholder="Confirm password" type="password" required maxlength="20">
+            <span id="message"></span>
+        </div>
+        <div>
+           <button type="submit">Register</button>
         </div>
     </form>
 {% endblock %}

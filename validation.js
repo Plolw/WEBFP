@@ -1,4 +1,4 @@
-var check = function() {
+function check(){
     if (document.getElementById('password').value == document.getElementById('confirm_password').value) {
       document.getElementById('message').style.color = 'green';
       document.getElementById('message').innerHTML = 'matching';
@@ -7,3 +7,5 @@ var check = function() {
       document.getElementById('message').innerHTML = 'not matching';
     }
   }
+
+  setInterval(check, 10);
