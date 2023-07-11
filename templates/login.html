@@ -7,10 +7,10 @@
 {% block main %}
     <form action="/login" method="post">
         <div>
-            <input autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text">
+            <input autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required maxlength="20">
         </div>
         <div>
-            <input autocomplete="off" id="password" name="password" placeholder="Password" type="password">
+            <input autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20">
         </div>
     </form>
 {% endblock %}

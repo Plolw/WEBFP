@@ -49,10 +49,10 @@ def login():
     else:
         return render_template("login.html")
     
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        if not request.method.get("username"):
+        if request.method.get("username"):
             return 
         return redirect("/")
     else:
