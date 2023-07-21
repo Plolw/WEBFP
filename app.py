@@ -8,13 +8,15 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config['SECRET_KEY'] = '4986487tgjh54gkl5748685g43987n'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web.db'
-db = SQLAlchemy(app)
 Session(app)
+db = SQLAlchemy(app)
 
 
 class User(db.Model):
