@@ -52,8 +52,9 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        if request.method.get("username"):
-            return 
+        if request.form.get("password") !=  request.form.get("confirm_password"):
+            error = "*Password validation incorrect"
+            return render_template("register.html", error=error)
         return redirect("/")
     else:
         return render_template("register.html")
