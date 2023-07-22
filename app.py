@@ -48,6 +48,13 @@ def login():
     session.clear()
 
     if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = User.query.filter_by(username=username).all()
+        if len(user) != 1 or not check_password_hash(user.password, password):
+            error = "*Invalid password or username"
+            return render_template("login.html", error=error)
+        session["user_id"] = user.id
         return redirect("/")
     else:
         return render_template("login.html")
