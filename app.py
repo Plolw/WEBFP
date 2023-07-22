@@ -51,10 +51,10 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         user = User.query.filter_by(username=username).all()
-        if len(user) != 1 or not check_password_hash(user.password, password):
+        if len(user) != 1 or not check_password_hash(user[0].password, password):
             error = "*Invalid password or username"
             return render_template("login.html", error=error)
-        session["user_id"] = user.id
+        session["user_id"] = user[0].id
         return redirect("/")
     else:
         return render_template("login.html")

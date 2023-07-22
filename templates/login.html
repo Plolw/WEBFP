@@ -12,5 +12,11 @@
         <div>
             <input autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20">
         </div>
+        </div>
+            <span id="message" style="color: red;"> {{ error }} </span>
+        <div>
+        <div>
+            <button type="submit" id="validation">Login</button>
+        </div>
     </form>
 {% endblock %}
