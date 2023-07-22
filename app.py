@@ -37,9 +37,8 @@ def after_request(response):
     return response
 
 @app.route("/")
-@login_required
 def hello():
-    return render_template("index.html")
+    return render_template("startscreen.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -82,6 +81,7 @@ def register():
         return render_template("register.html")
     
 @app.route("/logout")
+@login_required
 def logout():
     session.clear()
     return redirect("/")
