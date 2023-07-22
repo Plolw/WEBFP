@@ -58,6 +58,18 @@ def register():
         if request.form.get("password") !=  request.form.get("confirm_password"):
             error = "*Password validation incorrect"
             return render_template("register.html", error=error)
+        else:
+            username = request.form.get("username")
+            password = generate_password_hash(request.form.get("password"))
+            usertaken = User.query.filter_by(username=username).all()
+            if len(usertaken) > 0:
+                error = "*Username taken"
+                return render_template("register.html", error=error)
+            else:
+                user = User(username=username, password=password)
+                db.session.add(user)
+                db.session.commit()
+                session["user_id"] = user.id
         return redirect("/")
     else:
         return render_template("register.html")
