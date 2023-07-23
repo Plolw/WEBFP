@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block main %}
+    <p>Please create an account to save your data</p>
+    <p class="line">----------------------------------------------</p>
     <form action="/register" method="post">
         <div>
             <input autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required maxlength="20">
@@ -15,9 +17,10 @@
         <div>
             <input autocomplete="off" id="confirm_password" name="confirm_password" placeholder="Confirm password" type="password" required maxlength="20">
         </div>
-        <span id="message" style="color: red;"> {{ error }} </span>
+        <span class="message" id="message" style="color: red;"> {{ error }} </span>
         <div>
-           <button type="submit" id="validation">Register</button>
+           <button class="form-button" type="submit" id="validation">Register</button>
         </div>
     </form>
+    <span class="sml-txt">You alredy have an account? <a href="/login">Login</a>!</span>
 {% endblock %}

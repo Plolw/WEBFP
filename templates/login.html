@@ -5,18 +5,22 @@
 {% endblock %}
 
 {% block main %}
+    <p>Please login to save your data</p>
+    <p class="line">---------------------------------</p>
     <form action="/login" method="post">
         <div>
-            <input autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required maxlength="20">
+            <input autocmplete="off" id="username" name="username" autofocus placeholder="Username" type="text" required maxlength="20">
         </div>
         <div>
             <input autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20">
         </div>
         </div>
-            <span id="message" style="color: red;"> {{ error }} </span>
+            <span class="message" id="message" style="color: red;"> {{ error }} </span>
         <div>
         <div>
-            <button type="submit" id="validation">Login</button>
+            <button class="form-button" type="submit" id="validation">Login</button>
         </div>
     </form>
+    <span class="sml-txt">You don't have an account? <a href="/register">Register</a> to create one!</span>
+
 {% endblock %}

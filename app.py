@@ -38,6 +38,8 @@ def after_request(response):
 
 @app.route("/")
 def hello():
+    if session.get("user_id") is not None:
+        return redirect("/index")
     return render_template("startscreen.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -54,7 +56,7 @@ def login():
             error = "*Invalid password or username"
             return render_template("login.html", error=error)
         session["user_id"] = user[0].id
-        return redirect("/")
+        return redirect("/index")
     else:
         return render_template("login.html")
     
@@ -76,7 +78,7 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 session["user_id"] = user.id
-        return redirect("/")
+        return redirect("/index")
     else:
         return render_template("register.html")
     
@@ -85,3 +87,8 @@ def register():
 def logout():
     session.clear()
     return redirect("/")
+
+@app.route("/index", methods=["GET", "POST"])
+@login_required
+def index():
+    return render_template("index.html")
