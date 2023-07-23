@@ -14,31 +14,22 @@
     </head>
 
     <body>
-        <div class="container-max">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgb(53, 69, 74);">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon">G</span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        {% if session["user_id"] %}
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/logout"></a>Logout
-                                </li>
-                            </ul>
-                        {% else %}
-                            <ul class="navbar-nav ms-auto mb-2 mt-2">
-                                <li class="nav-item" aria-current="page">
-                                    <a class="nav-link" href="/login">Login</a>
-                                </li>
-                                <li class="nav-item" aria-current="page">
-                                    <a class="nav-link" href="/register">Register</a>
-                                </li>
-                            </ul>
-                        {% endif %}
-                    </div>
+        <div>
+            <nav style="background-color: rgb(67, 80, 83);">
+                <div class="grid_container">
+                    <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
+                    {% if session["user_id"] %}
+                        <div class="nav-item">
+                            <a class="nav-link" href="/logout"></a>Logout
+                        </div>
+                    {% else %}
+                        <div>
+                            <a class="nav-link" href="/login">Login</a>
+                        </div>
+                        <div>
+                            <a class="nav-link" href="/register">Register</a>
+                        </div>
+                    {% endif %}
                 </div>
             </nav>
         </div> 

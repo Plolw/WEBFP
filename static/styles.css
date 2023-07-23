@@ -1,12 +1,17 @@
 .navLogo {
-    color: rgb(227, 227, 227);
+    color: rgb(30, 31, 32);
     text-decoration: none;
-    font-size: xx-large;
+    font-size: 3em;
+    font-weight: 500;
 }
 #A {
     color: rgb(150, 56, 56);
     text-decoration: none;
-    font-size: xx-large;
+    font-size: 3em;
+}
+
+a {
+    text-decoration: none;
 }
 
 .nav-link {
@@ -16,14 +21,52 @@
     text-align: right;
 }
 
-a {
-    text-decoration: none;
+.nav-link:hover {
+    color: rgb(115, 122, 124);
 }
 
-a:hover {
-    color: rgb(113, 120, 122);
+.start-button {
+    position: relative;
+    top: 4em;
+    border-radius: 10px;
+    height: 5em;
+    width: 16em;
+    border: none;
+    text-decoration: none;
+    background-color: rgb(150, 56, 56);
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    transition-duration: 0.1s;
 }
+.start-button:hover {
+    background-color: rgb(134, 55, 55);
+    color: rgb(30, 31, 32);
+}
+
 
 body {
     background-color: rgb(87, 96, 99);
+    font-size: 100%;
+}
+
+h1 {
+    font-size: 6em;
+    padding-top: 1.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+    padding-top: 1em;
+    width: 22em;
+    position: relative;
+    left: 29em;
+}
+
+.grid_container {
+    display: grid;
+    grid-template-columns: 60% 33% 7%;
+    padding-left: 6em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-right: em;
 }
