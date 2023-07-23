@@ -15,9 +15,11 @@
 
     <body>
         <div>
-            <nav style="background-color: rgb(67, 80, 83);">
+            <nav style="background-color: rgba(0, 0, 0, 0.171);">
                 <div class="grid_container">
-                    <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
+                    <div>
+                        <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
+                    </div>
                     {% if session["user_id"] %}
                         <div class="nav-item">
                             <a class="nav-link" href="/logout"></a>Logout

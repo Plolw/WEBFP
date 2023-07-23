@@ -6,10 +6,14 @@
 
 {% block main %}
     <div>
-        <h1>Track your gr<span style="color: rgb(150, 56, 56)">A</span>des!</h1>
-        <h2>With GR<span style="color: rgb(150, 56, 56)">A</span>DES you can organize, track, calculate your grades and much more</h2>
-    </div>
-    <div>
-        <button class="start-button">START TRACKING</button>
+        <div>
+            <h1>Track your gr<span style="color: rgb(150, 56, 56)">A</span>des!</h1>
+            <h2>With GR<span style="color: rgb(150, 56, 56)">A</span>DES you can organize, track, calculate your grades and much more</h2>
+        </div>
+        <div>
+            <form action="/login" method="get">
+                <button href="/login" class="start-button">START TRACKING</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
