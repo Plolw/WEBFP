@@ -159,3 +159,17 @@ input:focus {
     color: rgb(138, 138, 138);
 }
 
+.grid-container-index {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto auto auto auto;
+}
+
+.menu {
+    grid-row: 1 / 4;
+    background-color: rgba(212, 212, 212, 0.555);
+}
+
+.table-grid {
+    grid-column: 2 / 4;
+}
