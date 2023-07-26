@@ -42,14 +42,14 @@ a:hover {
 button {
     border: none;
     border-radius: 50px;
-    width: 14em;
-    height: 3em;
 }
 
 .form-button {
     color: rgb(202, 202, 202);
     background-color: rgb(150, 56, 56);
     font-weight: 500;
+    width: 14em;
+    height: 3em;
 }
 
 .form-button:hover {
@@ -169,15 +169,15 @@ input:focus {
 .grid-container-index > div {
     padding: 0.8em;
     font-size: 1.5em;
-    background-color: rgba(212, 212, 212, 0.027)
     
 }
 
 .menu {
-    background-color: rgba(212, 212, 212, 0.027);
     position: fixed;
     display: grid;
     grid-template-columns: 100%;
+}
+.menu > button {
 }
 
 .menu-item {
