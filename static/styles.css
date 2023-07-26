@@ -161,24 +161,26 @@ input:focus {
 
 .grid-container-index {
     display: grid;
-    grid-template-columns: 20% auto auto auto;
-    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 100%;
     gap: 10px;
-    padding: 10px;
 }
 
 .grid-container-index > div {
-    padding: 1.5em;
+    padding: 0.8em;
     font-size: 1.5em;
+    background-color: rgba(212, 212, 212, 0.027)
+    
 }
 
 .menu {
-    grid-row: 1 / 4;
-    background-color: rgba(212, 212, 212, 0.137);
+    background-color: rgba(212, 212, 212, 0.027);
+    position: fixed;
+    display: grid;
+    grid-template-columns: 100%;
 }
 
-.menu > ul {
-    list-style-type: none;
+.menu-item {
     text-align: center;
 }
 
