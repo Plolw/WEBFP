@@ -26,6 +26,11 @@ class User(db.Model):
 
     def __repr__(self):
         return f"User('{self.username}')"
+    
+class Tables(db.model):
+    id = db.Column(db.Integer, primary_key=True)
+    course = db.Column(db.String, nullable=False)
+
 
 
 @app.after_request
