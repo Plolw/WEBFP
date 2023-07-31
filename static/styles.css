@@ -1,4 +1,6 @@
-
+:root {
+    font-size: medium;
+}
 
 .navLogo {
     color: rgb(202, 202, 202);
@@ -85,7 +87,6 @@ body {
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    align-items: center;
 }
 
 h1 {
@@ -129,7 +130,7 @@ p {
     padding-right: 6em;
 }
 
-input {
+.inputlog {
     border: none;
     border-bottom: 2px solid rgb(165, 165, 165);
     border-radius: 2px;
@@ -146,7 +147,7 @@ input {
     transition-duration: 0.1s;
 }
 
-input:focus {
+.inputlog:focus {
     border-bottom: 3px solid rgb(212, 212, 212);
     color: rgb(212, 212, 212);
     font-weight: 600;
@@ -161,29 +162,48 @@ input:focus {
 
 .grid-container-index {
     display: grid;
-    grid-template-columns: 20% 80%;
-    grid-template-rows: 100%;
-    gap: 10px;
+    grid-template-columns: 5rem auto;
+    grid-template-rows: auto auto;
+    gap: 0.3em;
 }
 
 .grid-container-index > div {
-    padding: 0.8em;
+    background-color: rgba(212, 212, 212, 0.178);
+}
+
+
+.collapse-menu {
+    padding: 0;
+    align-items: left;
+    grid-row: 1 / 3;
+}
+
+.collapse-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.collapse-menu-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 0 0 1rem;
+}
+
+.collapse-button {
+    width: 2rem;
+    height: 2rem;
+}
+
+input#menu {
+    display: none;
+}
+
+/* Toggle Effect */
+input:checked ~ .collapse-menu-content {
+    max-height: 100%;
+    grid-template-columns: auto auto;
+}
+
+table {
     font-size: 1.5em;
-    
-}
-
-.menu {
-    position: fixed;
-    display: grid;
-    grid-template-columns: 100%;
-}
-.menu > button {
-}
-
-.menu-item {
-    text-align: center;
-}
-
-.table-grid {
-    grid-column: 2 / 4;
 }

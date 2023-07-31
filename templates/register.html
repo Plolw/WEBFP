@@ -9,13 +9,13 @@
     <p class="line">----------------------------------------------</p>
     <form action="/register" method="post">
         <div>
-            <input autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required maxlength="20">
+            <input class="inputlog" autocmplete="off" autofocus id="username" name="username" placeholder="Username" type="text" required maxlength="20">
         </div>
         <div>
-            <input autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20">
+            <input class="inputlog" autocomplete="off" id="password" name="password" placeholder="Password" type="password" required maxlength="20">
         </div>
         <div>
-            <input autocomplete="off" id="confirm_password" name="confirm_password" placeholder="Confirm password" type="password" required maxlength="20">
+            <input class="inputlog" autocomplete="off" id="confirm_password" name="confirm_password" placeholder="Confirm password" type="password" required maxlength="20">
         </div>
         <span class="message" id="message" style="color: red;"> {{ error }} </span>
         <div>
