@@ -5,48 +5,53 @@
 {% endblock %}
 
 {% block main %}
-<div class="grid-container-index">
-    <div class="collapse-menu">
-        <input type="checkbox" id="menu">
-        <label for="menu"><img class="collapse-button" src="https://natenorthway.com/wp-content/uploads/2022/06/menu.png"></label>
-        <div class="collapse-menu-content">
-            <ul>
-                <li>Add row</li>
-                <li>Add row</li>
-                <li>Add row</li>
-                <li>Add row</li>
-                <li>Add row</li>
-            </ul>
-        </div>
+<div class="flex-container">
+    <div id="menu-index">
+        <button>Add Subject</button>
+        <button>Add Division</button>
+        <button>Remove Subject</button>
+        <button>Remove Division</button>
+      <!-- Add your menu options here -->
     </div>
-    <div> Uni > Maths</div>
-    <div> 
-        <table>
-            <tr>
-                <th>SUBJECT</th>
-                <th>SUBJECT</th>
-                <th>SUBJECT</th>
-                <th>SUBJECT</th>
-                <th>SUBJECT</th>
-                <th>SUBJECT</th>
-            </tr>
-            <tr>
-                <td>dfdfdf</td>
-                <td>difu</td>
-                <td>difu</td>
-                <td>difu</td>
-                <td>difu</td>
-                <td>difu</td>
-            </tr>
-            <tr>
-                <td>dfdfdf</td>
-                <td>difu</td>
-                <td>difu</td>
-                <td>difu</td>
-                <td>difu</td>
-                <td>difu</td>
-            </tr>
-        </table>
+    <div id="content">
+      <table>
+        <thead>
+          <tr>
+            <th>SUBJECT</th>
+            <th>1rst Division</th>
+            <th>Overall Sb</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Add your grade input rows here using Flask to dynamically generate them -->
+          <!-- Example:
+          <tr>
+            <td>Math</td>
+            <td>Algebra</td>
+            <td><input type="number" name="algebra_grade"></td>
+          </tr>
+          -->
+          <tr>
+            <td>Math</td>
+            <td>Algebra</td>
+            <td>6</td>
+          </tr>
+          <tr>
+            <td>Math</td>
+            <td>Algebra</td>
+            <td>6</td>
+          </tr>
+          <tr>
+            <td>Math</td>
+            <td>Algebra</td>
+            <td>6</td>
+          </tr>
+          <tr>
+            <th>Overall Div</th>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Add your overall grade calculation and result display here using Flask -->
     </div>
-</div>
+  </div>
 {% endblock %}

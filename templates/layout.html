@@ -16,23 +16,34 @@
     <body>
         <div>
             <nav style="background-color: rgba(0, 0, 0, 0.171);">
-                <div class="grid_container">
-                    <div>
-                        <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
-                    </div>
-                    {% if session["user_id"] %}
+                {% if session["user_id"] %}
+                    <div class="grid_container2">
+                        <div>
+                            <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
+                        </div>
+                        <div>
+                            <a class="nav-link2" href="#">My courses</a>
+                        </div>
+                        <div>
+                            <a class="nav-link" href="/login">Change Account</a>
+                        </div>
                         <div>
                             <a class="nav-link" href="/logout">Logout</a>
                         </div>
-                    {% else %}
+                    </div>
+                {% else %}
+                    <div class="grid_container">
+                        <div>
+                            <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
+                        </div>
                         <div>
                             <a class="nav-link" href="/login">Login</a>
                         </div>
                         <div>
                             <a class="nav-link" href="/register">Register</a>
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
             </nav>
         </div> 
 
