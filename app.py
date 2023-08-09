@@ -18,19 +18,46 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web.db'
 Session(app)
 db = SQLAlchemy(app)
 
+app.app_context().push()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+    courses = db.relationship('Course', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}')"
     
-class Tables(db.Model):
+class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    course = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    course = db.Column(db.String(50), nullable=False)
+    divisions = db.Column(db.Integer, nullable=False)
+    tables = db.relationship('Subject', backref='course', lazy=True)
 
+    def __repr__(self):
+        return f"Course('{self.course}')"
+    
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    subject = db.Column(db.String(100), nullable=False)
+    grades = db.relationship('Grade', backref='subject', lazy=True)
+
+    def __repr__(self):
+        return f"Table('{self.subject}')"
+
+class Grade(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+    division = db.Column(db.String(50), nullable=False)
+    grade = db.Column(db.Integer, nullable=False)
+    
+    def __repr__(self):
+        return f"Table('{self.division}', '{self.grade}')"
+    
+db.create_all()
 
 
 @app.after_request
