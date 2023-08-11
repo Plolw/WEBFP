@@ -32,9 +32,9 @@ class User(db.Model):
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    course = db.Column(db.String(50), nullable=False)
+    course = db.Column(db.String(50), nullable=True)
     divisions = db.Column(db.Integer, nullable=False)
-    tables = db.relationship('Subject', backref='course', lazy=True)
+    subjects = db.relationship('Subject', backref='course', lazy=True)
 
     def __repr__(self):
         return f"Course('{self.course}')"
@@ -42,7 +42,7 @@ class Course(db.Model):
 class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    subject = db.Column(db.String(100), nullable=False)
+    subject = db.Column(db.String(100), nullable=True)
     grades = db.relationship('Grade', backref='subject', lazy=True)
 
     def __repr__(self):
@@ -50,6 +50,7 @@ class Subject(db.Model):
 
 class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
     division = db.Column(db.String(50), nullable=False)
     grade = db.Column(db.Integer, nullable=False)
@@ -123,4 +124,17 @@ def logout():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+    if request.method == "POST":
+        courses = Grade.query.filter_by(user_id = session["user_id"])
+        return redirect("/index")
+    else:
+        #Store course selected by user
+
+        selected_course = request.form.get("selected_option")
+
+        #Query through all the DB to print it on screen
+        courses = Course.query.filter_by(user_id = session["user_id"], course = selected_course).first()
+        subjects = Subject.query.filter_by(course_id = courses.id).all()
+        grades = Grade.query.filter_by(user_id = session["user_id"]).all()
+        divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
+        return render_template("index.html")

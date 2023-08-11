@@ -18,7 +18,9 @@
         <thead>
           <tr>
             <th>SUBJECT</th>
-            <th>1rst Division</th>
+            {% for division in grades %}
+              <th>{{ div }}</th>
+            {% enfor %}
             <th>Overall Sb</th>
           </tr>
         </thead>

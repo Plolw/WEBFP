@@ -21,8 +21,14 @@
                         <div>
                             <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
                         </div>
-                        <div>
-                            <a class="nav-link2" href="#">My courses</a>
+                        <div class="dropdown">
+                            <form method="post">
+                                <a class="nav-link2" href="#">My courses</a>
+                                {% for course in courses %}
+                                    <option class="dropdown-content" value="{{ course }}">{{ course }}</option>
+                                {% endfor %}
+                                <option class="dropdown-content" value="New course +">New course +</option>
+                            </form>
                         </div>
                         <div>
                             <a class="nav-link" href="/login">Change Account</a>

@@ -94,6 +94,26 @@ th {
     top: 1em;
 }
 
+.dropdown {
+    position: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-top: 1.3rem;
+    min-width: 160px;
+    padding: 12px 16px;
+    z-index: 1;
+    background-color: rgb(61, 66, 68);
+    border-radius: 5px;
+
+  }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .nav-link:hover {
     color: rgb(170, 170, 170);
 }
