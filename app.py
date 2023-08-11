@@ -135,11 +135,11 @@ def index():
         if not courses: #if there is no courses it would give an error so asign an empty dict to courses
             courses = {}
             return render_template("index.html", courses=courses)
-        elif selected_course:
-            course = Course.query.filter_by(user_id = session["user_id"], course = selected_course).first()
-        else:
+        elif selected_course == None:
             c = Course.query.filter_by(user_id = session["user_id"]).first()
             selected_course = c.course
+        else:
+            course = Course.query.filter_by(user_id = session["user_id"], course = selected_course).first()
         print(selected_course)
         #Print the course on screen
         #subjects = Subject.query.filter_by(course_id = course.id).all()
