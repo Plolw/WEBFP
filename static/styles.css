@@ -175,7 +175,7 @@ th {
 
 .grid_container2 {
     display: grid;
-    grid-template-columns: 15% 45% 30% 7%;
+    grid-template-columns: 15% 15% 50% 10% 10%;
     padding-left: 6em;
     padding-top: 1em;
     padding-bottom: 1em;
