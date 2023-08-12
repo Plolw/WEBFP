@@ -34,9 +34,10 @@ class Course(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course = db.Column(db.String(50), nullable=True)
     subjects = db.relationship('Subject', backref='course', lazy=True)
+    selected = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
-        return f"Course('{self.course}')"
+        return f"Course('{self.course}', '{self.selected}')"
     
 class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -125,22 +126,23 @@ def logout():
 @login_required
 def index():
     if request.method == "POST":
-        #courses = Grade.query.filter_by(user_id = session["user_id"])
-        selected_course = request.form.get("selected_option")
+        #Store selected course by user
+        selected_course_id = int(request.form.get("selected_option"))
+
+        #Update "selected" to false on all columns
+        Course.query.filter_by(user_id = session["user_id"]).update({"selected": False})
+
+        #Update "selected" to true on the selected course
+        selected_course = Course.query.filter_by(id = selected_course_id).first()
+        selected_course.selected = True
+
+        db.session.commit()
+
         return redirect("/index")
     else:
-        #Store course selected by user
-        #Query through all the DB to print it on screen
+        #Query through all the DB to print it on the dropdown
         courses = Course.query.filter_by(user_id = session["user_id"]).all()
-        if not courses: #if there is no courses it would give an error so asign an empty dict to courses
-            courses = {}
-            return render_template("index.html", courses=courses)
-        elif selected_course == None:
-            c = Course.query.filter_by(user_id = session["user_id"]).first()
-            selected_course = c.course
-        else:
-            course = Course.query.filter_by(user_id = session["user_id"], course = selected_course).first()
-        print(selected_course)
+    
         #Print the course on screen
         #subjects = Subject.query.filter_by(course_id = course.id).all()
         #grades = Grade.query.filter_by(user_id = session["user_id"]).all()
@@ -152,7 +154,11 @@ def index():
 def addCourse():
     if request.method == "POST":
         course_name = request.form.get("course_name")
-        course = Course(user_id = session["user_id"], course = course_name)
+        courses = Course.query.filter_by(user_id = session["user_id"]).all()
+        if not courses:
+            course = Course(user_id = session["user_id"], course = course_name, selected = True)
+        else:
+            course = Course(user_id = session["user_id"], course = course_name, selected = False)
         db.session.add(course)
         db.session.commit()
         return redirect("/index")

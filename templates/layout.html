@@ -25,11 +25,12 @@
                             <form action="/index" method="post">
                                 <select id="course_dropdown" name="selected_option">
                                 {% for course in courses %}
-                                    <option class="dropdown-content" value="{{ course.course }}">{{ course.course }}</option>
+                                    <option class="dropdown-content" value="{{ course.id }}">{{ course.course }}</option>
                                 {% endfor %}
                                 </select>
                                 <button type="submit">Change Table</button>
                             </form>
+                            <a class="nav-link2" href="/NewCourse">Add course+</a>
                         </div>
                         <div>
                             <a class="nav-link" href="/login">Change Account</a>
