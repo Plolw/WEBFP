@@ -33,7 +33,7 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course = db.Column(db.String(50), nullable=True)
-    grades = db.relationship('grade', backref='course', lazy=True)
+    grades = db.relationship('Grade', backref='course', lazy=True)
     selected = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
@@ -128,16 +128,21 @@ def index():
 
         db.session.commit()
 
+        #Check for new subjects
+
+
         return redirect("/index")
     else:
         #Query through all the DB to print it on the dropdown
         courses = Course.query.filter_by(user_id = session["user_id"]).all()
+        course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
 
         #Query through all the course DB to print it on the table
-        #subjects = Subject.query.filter_by(course_id = course.id).all()
-        grades = Grade.query.filter_by(user_id = session["user_id"]).all()
-        divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
-        return render_template("index.html", courses=courses)
+        subjects = Grade.query.filter_by(course_id = course.id).distinct().all()
+        divisions = Grade.query.filter_by(course_id = course.id).distinct().all()
+        #grades = Grade.query.filter_by(user_id = session["user_id"]).all()
+        #divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
+        return render_template("index.html", courses=courses, divisions=divisions)
         
 @app.route("/NewCourse", methods=["GET", "POST"])
 @login_required
@@ -154,3 +159,34 @@ def addCourse():
         return redirect("/index")
     else:
         return render_template("newcourse.html")
+    
+@app.route("/add_subject", methods=["GET", "POST"])
+@login_required
+def addSubject():
+    if request.method == "POST":
+        subject = request.form.get("subject_input")
+        course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
+        divisions = Grade.query.filter_by(course_id = course.id).distinct().all()
+        for division in divisions:
+            grade = request.form.get(f"{division.id}")
+            row = Grade(course_id = course.id, subject = subject, division = division.division, grade = grade)
+            db.session.add(row)
+            db.session.commit()
+        return redirect("/index")
+    else:
+        course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
+        divisions = Grade.query.filter_by(course_id = course.id).distinct().all()
+        return render_template("/add_subject.html", divisions=divisions)
+
+@app.route("/add_division", methods=["GET", "POST"])
+@login_required
+def addDivision():
+    if request.method == "POST":
+        course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
+        name = request.form.get("division_input")
+        division = Grade(course_id = course.id, division = name)
+        db.session.add(division)
+        db.session.commit()
+        return redirect("/index")
+    else:
+        return render_template("/add_division.html")

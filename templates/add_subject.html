@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Main Page
+{% endblock %}
+
+{% block main %}
+  <div class="flex-container">
+    <div>
+        <form action="/add_subject" method="post">
+          <input class="inputlog" type="text" placeholder="Subject name" id="subject_input" name="subject_input" autocomplete="off" maxlength="50">
+          {% for division in divisions %}
+            <label>{{ division.id }}</label>
+            <input class="inputlog" type="number" placeholder="Grade" id="{{ divison.id }}" name="subject_input" autocomplete="off" maxlength="50">
+          {% endfor %}
+          <button class="form-button" type="submit" id="add/change_subject">Submit</button>
+        </form>
+    </div>
+  </div>
+{% endblock %}

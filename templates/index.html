@@ -5,36 +5,19 @@
 {% endblock %}
 
 {% block main %}
-<script>
-  function Show(elementID) {
-    var x = document.getElementById(elementID);
-    if (x.style.display === "none") {
-      x.style.display = "absolute";
-    }
-  }
-  function Hide(elementID) {
-    var x = document.getElementById(elementID);
-    if (x.style.display === "absolute") {
-      x.style.display = "none";
-    }
-  }
-</script>
-<div class="flex-container">
+  <div class="flex-container">
     <div id="menu-index">
+      <form action="/add_subject" method="get">
         <button>Add Subject</button>
-        <button>Add Division</button>
-        <button>Remove Subject</button>
-        <button>Remove Division</button>
-      <!-- Add your menu options here -->
-    </div>
-    <div class="flex-container" id="Add_subject">
-      <form action="/index" method="post">
-        <input class="inputlog" type="text" placeholder="Subject name" id="subject_input" name="subject_input" autocomplete="off" maxlength="50">
       </form>
-    </div>
-    <div class="flex-container" id="Add_division">
+      <form action="/add_division" method="get">
+        <button>Add Division</button>
+      </form>
       <form action="/index" method="post">
-
+        <button>Remove Subject</button>
+      </form>
+      <form>
+        <button>Remove Division</button>
       </form>
     </div>
     <div id="content">
