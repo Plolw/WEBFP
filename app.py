@@ -33,26 +33,16 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course = db.Column(db.String(50), nullable=True)
-    subjects = db.relationship('Subject', backref='course', lazy=True)
+    grades = db.relationship('grade', backref='course', lazy=True)
     selected = db.Column(db.Boolean, nullable=False)
 
     def __repr__(self):
         return f"Course('{self.course}', '{self.selected}')"
-    
-class Subject(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    subject = db.Column(db.String(100), nullable=True)
-    divisions = db.Column(db.String, nullable=True)
-    grades = db.relationship('Grade', backref='subject', lazy=True)
-
-    def __repr__(self):
-        return f"Table('{self.subject}')"
 
 class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+    subject = db.Column(db.String(25), nullable=True)
     division = db.Column(db.String(50), nullable=True)
     grade = db.Column(db.Integer, nullable=True)
     
@@ -142,11 +132,11 @@ def index():
     else:
         #Query through all the DB to print it on the dropdown
         courses = Course.query.filter_by(user_id = session["user_id"]).all()
-    
-        #Print the course on screen
+
+        #Query through all the course DB to print it on the table
         #subjects = Subject.query.filter_by(course_id = course.id).all()
-        #grades = Grade.query.filter_by(user_id = session["user_id"]).all()
-        #divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
+        grades = Grade.query.filter_by(user_id = session["user_id"]).all()
+        divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
         return render_template("index.html", courses=courses)
         
 @app.route("/NewCourse", methods=["GET", "POST"])
