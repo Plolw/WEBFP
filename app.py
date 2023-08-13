@@ -47,7 +47,7 @@ class Grade(db.Model):
     grade = db.Column(db.Integer, nullable=True)
     
     def __repr__(self):
-        return f"Table('{self.division}', '{self.grade}')"
+        return f"Grade('{self.division}', '{self.grade}')"
     
 db.create_all()
 
@@ -138,11 +138,11 @@ def index():
         course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
 
         #Query through all the course DB to print it on the table
-        subjects = Grade.query.filter_by(course_id = course.id).distinct().all()
-        divisions = Grade.query.filter_by(course_id = course.id).distinct().all()
+        subjects = Grade.query.filter(Grade.course_id == course.id).group_by(Grade.subject).all()
+        divisions = Grade.query.filter(Grade.course_id == course.id).group_by(Grade.division).all()
         #grades = Grade.query.filter_by(user_id = session["user_id"]).all()
         #divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
-        return render_template("index.html", courses=courses, divisions=divisions)
+        return render_template("index.html", courses=courses, divisions=divisions, subjects = subjects)
         
 @app.route("/NewCourse", methods=["GET", "POST"])
 @login_required
@@ -168,14 +168,15 @@ def addSubject():
         course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
         divisions = Grade.query.filter_by(course_id = course.id).distinct().all()
         for division in divisions:
-            grade = request.form.get(f"{division.id}")
+            grade = request.form.get(f"{division.id}_grade")
+            print(grade)
             row = Grade(course_id = course.id, subject = subject, division = division.division, grade = grade)
             db.session.add(row)
             db.session.commit()
         return redirect("/index")
     else:
         course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
-        divisions = Grade.query.filter_by(course_id = course.id).distinct().all()
+        divisions = Grade.query.filter(Grade.course_id == course.id).group_by(Grade.division).all()
         return render_template("/add_subject.html", divisions=divisions)
 
 @app.route("/add_division", methods=["GET", "POST"])

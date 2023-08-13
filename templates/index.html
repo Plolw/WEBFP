@@ -32,8 +32,27 @@
           </tr>
         </thead>
         <tbody>
+          {% for subject in subjects %}
+            <tr>
+              <td>{{ subject.subject }}</td>
+              {% for division in divisions %}
+                <td>
+                  {% for grade in subject.grades %}
+                    {% if grade.division == division.division %}
+                      {{ grade.grade }}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              {% endfor %}
+              <td> <!-- Calculate and display overall subject grade here --> </td>
+            </tr>
+          {% endfor %}
           <tr>
             <th>Overall Div</th>
+            {% for division in divisions %}
+              <td> <!-- Calculate and display overall division grade here --> </td>
+            {% endfor %}
+            <td> <!-- Calculate and display overall course grade here --> </td>
           </tr>
         </tbody>
       </table>
