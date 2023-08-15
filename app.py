@@ -18,14 +18,48 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web.db'
 Session(app)
 db = SQLAlchemy(app)
 
+app.app_context().push()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+    courses = db.relationship('Course', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}')"
+    
+class Course(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    course = db.Column(db.String(50), nullable=True)
+    subjects = db.relationship('Subject', backref='course', lazy=True)
+    selected = db.Column(db.Boolean, nullable=False)
+
+    def __repr__(self):
+        return f"Course('{self.course}', '{self.selected}')"
+    
+class Subject(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    subject = db.Column(db.String(100), nullable=True)
+    divisions = db.Column(db.String, nullable=True)
+    grades = db.relationship('Grade', backref='subject', lazy=True)
+
+    def __repr__(self):
+        return f"Table('{self.subject}')"
+
+class Grade(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+    division = db.Column(db.String(50), nullable=True)
+    grade = db.Column(db.Integer, nullable=True)
+    
+    def __repr__(self):
+        return f"Table('{self.division}', '{self.grade}')"
+    
+db.create_all()
 
 
 @app.after_request
@@ -91,4 +125,42 @@ def logout():
 @app.route("/index", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template("index.html")
+    if request.method == "POST":
+        #Store selected course by user
+        selected_course_id = int(request.form.get("selected_option"))
+
+        #Update "selected" to false on all columns
+        Course.query.filter_by(user_id = session["user_id"]).update({"selected": False})
+
+        #Update "selected" to true on the selected course
+        selected_course = Course.query.filter_by(id = selected_course_id).first()
+        selected_course.selected = True
+
+        db.session.commit()
+
+        return redirect("/index")
+    else:
+        #Query through all the DB to print it on the dropdown
+        courses = Course.query.filter_by(user_id = session["user_id"]).all()
+    
+        #Print the course on screen
+        #subjects = Subject.query.filter_by(course_id = course.id).all()
+        #grades = Grade.query.filter_by(user_id = session["user_id"]).all()
+        #divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
+        return render_template("index.html", courses=courses)
+        
+@app.route("/NewCourse", methods=["GET", "POST"])
+@login_required
+def addCourse():
+    if request.method == "POST":
+        course_name = request.form.get("course_name")
+        courses = Course.query.filter_by(user_id = session["user_id"]).all()
+        if not courses:
+            course = Course(user_id = session["user_id"], course = course_name, selected = True)
+        else:
+            course = Course(user_id = session["user_id"], course = course_name, selected = False)
+        db.session.add(course)
+        db.session.commit()
+        return redirect("/index")
+    else:
+        return render_template("newcourse.html")

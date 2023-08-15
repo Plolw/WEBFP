@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Start
+{% endblock %}
+
+{% block main %}
+
+<form action="/NewCourse" method="post">
+    <p>Create a new course</p>
+    <div>
+        <input class="inputlog" autocmplete="off" id="course_name" name="course_name" autofocus placeholder="Course name" type="text" required maxlength="50">
+    </div>
+    <div>
+        <button type="submit" id="Ncourse">Create</button>
+    </div>
+</form>
+
+{% endblock %}

@@ -18,34 +18,13 @@
         <thead>
           <tr>
             <th>SUBJECT</th>
-            <th>1rst Division</th>
+            {% for division in divisions %}
+              <th>{{ division.division }}</th>
+            {% endfor %}
             <th>Overall Sb</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Add your grade input rows here using Flask to dynamically generate them -->
-          <!-- Example:
-          <tr>
-            <td>Math</td>
-            <td>Algebra</td>
-            <td><input type="number" name="algebra_grade"></td>
-          </tr>
-          -->
-          <tr>
-            <td>Math</td>
-            <td>Algebra</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>Math</td>
-            <td>Algebra</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>Math</td>
-            <td>Algebra</td>
-            <td>6</td>
-          </tr>
           <tr>
             <th>Overall Div</th>
           </tr>
