@@ -36,9 +36,7 @@ h1 {
 h2 {
     font-size: 1.5em;
     padding-top: 1em;
-    width: 22em;
-    position: relative;
-    left: 29em;
+    text-align: center;
     color: rgb(202, 202, 202);
 }
 
@@ -155,7 +153,7 @@ th {
 
 .grid_container2 {
     display: grid;
-    grid-template-columns: 15% 45% 30% 7%;
+    grid-template-columns: 17% 43% 30% 7%;
     padding-left: 6em;
     padding-top: 1em;
     padding-bottom: 1em;
