@@ -36,7 +36,7 @@
             <tr>
               <td>{{ subject.subject }}</td>
               {% for division in divisions %}
-                {% if division.suject_id == subject.id %}
+                {% if division.subject_id == subject.id %}
                     {% for grade in grades %}
                       {% if grade.division_id == division.id %}
                       <td>{{ grade.grade }}</td>
