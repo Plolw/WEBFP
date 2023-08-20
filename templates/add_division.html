@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    Main Page
+{% endblock %}
+
+{% block main %}
+<div class="flex-container2">
+    <div>
+        <form action="/add_division" method="post">
+          <input class="inputlog" type="text" placeholder="Division name" id="division_input" name="division_input" autocomplete="off" maxlength="50">
+          <button class="form-button" type="submit" id="add/change_subject">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

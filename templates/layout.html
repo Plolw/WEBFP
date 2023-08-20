@@ -17,8 +17,8 @@
         <div>
             <nav style="background-color: rgba(0, 0, 0, 0.171);">
                 {% if session["user_id"] %}
-                    <div class="grid_container2">
-                        <div>
+                    <div class="flex-container">
+                        <div class="flex-container-left">
                             <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
                         </div>
                         <div class="dropdown">
@@ -28,9 +28,11 @@
                                     <option class="dropdown-content" value="{{ course.id }}">{{ course.course }}</option>
                                 {% endfor %}
                                 </select>
-                                <button type="submit">Change Table</button>
+                                <button type="submit" id="table-button">Change Table</button>
                             </form>
-                            <a class="nav-link2" href="/NewCourse">Add course+</a>
+                        </div>
+                        <div>
+                            <a class="nav-link" href="/NewCourse">Add course+</a>
                         </div>
                         <div>
                             <a class="nav-link" href="/login">Change Account</a>
@@ -40,8 +42,8 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="grid_container">
-                        <div>
+                    <div class="flex-container">
+                        <div class="flex-container-left2">
                             <a href="/"><span class="navLogo">GR</span><span id="A">A</span><span class="navLogo">DES</span></a>
                         </div>
                         <div>

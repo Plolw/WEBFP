@@ -5,31 +5,59 @@
 {% endblock %}
 
 {% block main %}
-<div class="flex-container">
+  <div class="flex-container">
     <div id="menu-index">
+      <form action="/add_subject" method="get">
         <button>Add Subject</button>
+      </form>
+      <form action="/add_division" method="get">
         <button>Add Division</button>
-        <button>Remove Subject</button>
-        <button>Remove Division</button>
-      <!-- Add your menu options here -->
+      </form>
+      <p id="instructions">How to use</p>
+      <p style="text-align: left;"><span style="color: rgb(243, 6, 6)">1.</span> Create an empty subject (it wont have grades)<br>
+        <span style="color: rgb(243, 6, 6)">2.</span> Add as many divisions as you want (you can add more later)<br>
+        <span style="color: rgb(243, 6, 6)">3.</span> (optional) Erase the first subject that you created since it's empty<br>
+        <span style="color: rgb(243, 6, 6)">4.</span> Your good to go!
+      </p>
     </div>
     <div id="content">
+      <p>{{ course }}</p>
       <table>
         <thead>
           <tr>
             <th>SUBJECT</th>
-            {% for division in divisions %}
+            {% for division in div2 %}
               <th>{{ division.division }}</th>
             {% endfor %}
             <th>Overall Sb</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>Overall Div</th>
-          </tr>
+          {% for subject in subjects %}
+            <tr>
+              <td>{{ subject.subject }}<form action="/delete" method="post"><button class="btn-delete" name="deletebtn" value="{{ subject.id }}">X</button></form></td>
+              {% for division in divisions %}
+                {% if division.subject_id == subject.id %}
+                    {% for grade in grades %}
+                      {% if grade.division_id == division.id %}
+                        <td>{{ grade.grade }}</td>
+                      {% endif %}
+                    {% endfor %}
+                {% endif %}
+              {% endfor %}
+              {% for dict in overall_list %}
+                {% if dict.subject == subject.subject %}
+                  <td>{{ dict.overall }}</td>
+                {% endif %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
+      <div class="flex-container">
+        <span class="footer">OVERALL</span>
+        <span>{{ overall }}</span>
+      </div>
       <!-- Add your overall grade calculation and result display here using Flask -->
     </div>
   </div>
