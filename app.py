@@ -153,7 +153,8 @@ def index():
         #Query through all the DB to print it on the dropdown
         courses = Course.query.filter_by(user_id = session["user_id"]).all()
         course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
-
+        if course == None:
+            return render_template("index.html", courses=courses)
         #Query through all the course DB to print it on the table
         subjects = course.subjects
         divisions = Division.query.all()
@@ -174,6 +175,7 @@ def index():
                     if grade.division_id == div.id:
                         currentSb += grade.grade * (grade.percentage / 100)
                         i += 1
+            if i != 0:
                 overall_list.append(currentSb / i)
         #Get the DIV overalls
 

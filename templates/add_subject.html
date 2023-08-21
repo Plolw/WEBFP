@@ -11,7 +11,8 @@
           <input class="inputlog" type="text" placeholder="Subject name" id="subject_input" name="subject_input" autocomplete="off" maxlength="50">
           {% for division in divisions %}
             <label>{{ division.division }}</label>
-            <input class="inputlog" type="number" placeholder="Grade" id="grade_input" name="{{ division.id }}_grade" autocomplete="off" maxlength="50">
+            <input class="inputlog" type="number" placeholder="Grade" id="grade_input" name="{{ division.id }}_grade" autocomplete="off" maxlength="100">
+            <input class="inputlog" type="number" placeholder="Grade percentage" id="grade_percentage" name="{{ division.id }}_grade_percentage" autocomplete="off" maxlength="100">
           {% endfor %}
           <button class="form-button" type="submit" id="add/change_subject">Submit</button>
         </form>
