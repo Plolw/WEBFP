@@ -61,9 +61,10 @@ class Grade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=False)
     grade = db.Column(db.Integer, nullable=True)
+    percentage = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"Grade('{self.grade}')"
+        return f"Grade('{self.grade}', '{self.percentage}')"
     
 db.create_all()
 
@@ -161,8 +162,22 @@ def index():
             div2 = []
             return render_template("index.html", div2=div2, courses=courses, divisions=divisions, subjects = subjects, grades = grades)
         div2 = course.subjects[0].divisions
-        #grades = Grade.query.filter_by(user_id = session["user_id"]).all()
-        #divisions = Grade.query.filter_by(user_id = session["user_id"]).distinct().all()
+
+        #Get the SB overalls
+        overall_list = []
+        currentSb = 0
+        i = 0
+        for subject in subjects:
+            col = subject.divisions
+            for div in col:
+                for grade in grades:
+                    if grade.division_id == div.id:
+                        currentSb += grade.grade * (grade.percentage / 100)
+                        i += 1
+                overall_list.append(currentSb / i)
+        #Get the DIV overalls
+
+
         return render_template("index.html", div2=div2, courses=courses, divisions=divisions, subjects = subjects, grades = grades)
         
 @app.route("/NewCourse", methods=["GET", "POST"])
@@ -201,8 +216,8 @@ def addSubject():
             db.session.add(div)
             db.session.commit()
             grade = request.form.get(f"{division.id}_grade")
-            print(grade)
-            row = Grade(division_id = div.id, grade = grade)
+            percentage = request.form.get(f"{division.id}_grade_percentage")
+            row = Grade(division_id = div.id, grade = grade, percentage = percentage)
             db.session.add(row)
             db.session.commit()
         return redirect("/index")
@@ -239,17 +254,20 @@ def delete():
     
     #Delete divisions
     div = Division.query.filter_by(subject_id=btn_id).all()
-    print(div)
+
     for div in div:
         grd = Grade.query.filter_by(division_id=div.id).first()
-        print(grd)
-        db.session.delete(grd)
-
-    print(div)
-    db.session.delete(div)
-
-    db.session.delete(sub)
+        if grd:
+            db.session.delete(grd)
+            db.session.commit()
     
+    div = Division.query.filter_by(subject_id=btn_id).all()
+    for div in div:
+        db.session.delete(div)
+        db.session.commit()
 
+    
+    db.session.delete(sub)
     db.session.commit()
+
     return redirect("/index")
