@@ -63,7 +63,7 @@ class Grade(db.Model):
     grade = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return f"Grade('{self.grade})"
+        return f"Grade('{self.grade}')"
     
 db.create_all()
 
@@ -227,3 +227,29 @@ def addDivision():
         return redirect("/index")
     else:
         return render_template("/add_division.html")
+    
+
+@app.route("/delete", methods=["POST"])
+@login_required
+def delete():
+    btn_id = request.form.get('deletebtn')
+    
+    #Delete subject
+    sub = Subject.query.filter_by(id=btn_id).first()
+    
+    #Delete divisions
+    div = Division.query.filter_by(subject_id=btn_id).all()
+    print(div)
+    for div in div:
+        grd = Grade.query.filter_by(division_id=div.id).first()
+        print(grd)
+        db.session.delete(grd)
+
+    print(div)
+    db.session.delete(div)
+
+    db.session.delete(sub)
+    
+
+    db.session.commit()
+    return redirect("/index")

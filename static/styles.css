@@ -219,7 +219,12 @@ th {
     align-items: center;
 }
 
-
+.btn-delete {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.788);
+}
 /* Class styles END -------------------------------------------------------------------*/
 
 

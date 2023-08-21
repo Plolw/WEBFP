@@ -34,12 +34,12 @@
         <tbody>
           {% for subject in subjects %}
             <tr>
-              <td>{{ subject.subject }}</td>
+              <td>{{ subject.subject }}<form action="/delete" method="post"><button class="btn-delete" name="deletebtn" value="{{ subject.id }}">X</button></form></td>
               {% for division in divisions %}
                 {% if division.subject_id == subject.id %}
                     {% for grade in grades %}
                       {% if grade.division_id == division.id %}
-                      <td>{{ grade.grade }}</td>
+                        <td>{{ grade.grade }}</td>
                       {% endif %}
                     {% endfor %}
                 {% endif %}
