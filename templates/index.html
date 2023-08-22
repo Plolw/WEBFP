@@ -13,14 +13,15 @@
       <form action="/add_division" method="get">
         <button>Add Division</button>
       </form>
-      <form action="/index" method="post">
-        <button>Remove Subject</button>
-      </form>
-      <form>
-        <button>Remove Division</button>
-      </form>
+      <p id="instructions">How to use</p>
+      <p style="text-align: left;"><span style="color: rgb(243, 6, 6)">1.</span> Create an empty subject (it wont have grades)<br>
+        <span style="color: rgb(243, 6, 6)">2.</span> Add as many divisions as you want (you can add more later)<br>
+        <span style="color: rgb(243, 6, 6)">3.</span> (optional) Erase the first subject that you created since it's empty<br>
+        <span style="color: rgb(243, 6, 6)">4.</span> Your good to go!
+      </p>
     </div>
     <div id="content">
+      <p>{{ course }}</p>
       <table>
         <thead>
           <tr>
@@ -44,14 +45,19 @@
                     {% endfor %}
                 {% endif %}
               {% endfor %}
-              <td> <!-- Calculate and display overall subject grade here --> </td>
+              {% for dict in overall_list %}
+                {% if dict.subject == subject.subject %}
+                  <td>{{ dict.overall }}</td>
+                {% endif %}
+              {% endfor %}
             </tr>
           {% endfor %}
-          <tr>
-            <th>Overall Div</th>
-          </tr>
         </tbody>
       </table>
+      <div class="flex-container">
+        <span class="footer">OVERALL</span>
+        <span>{{ overall }}</span>
+      </div>
       <!-- Add your overall grade calculation and result display here using Flask -->
     </div>
   </div>

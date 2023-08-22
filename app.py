@@ -166,21 +166,28 @@ def index():
 
         #Get the SB overalls
         overall_list = []
-        currentSb = 0
-        i = 0
         for subject in subjects:
+            currentSb = 0
             col = subject.divisions
             for div in col:
                 for grade in grades:
                     if grade.division_id == div.id:
                         currentSb += grade.grade * (grade.percentage / 100)
-                        i += 1
-            if i != 0:
-                overall_list.append(currentSb / i)
-        #Get the DIV overalls
+            
+            overall_list.append({"overall": round(currentSb, 2), "subject": subject.subject})
+
+        #Get course overall
+        overall = 0
+        for x in overall_list:
+            overall += x["overall"]
+        print(overall / len(overall_list))
+
+        #Extra stuff
+        course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
+        coursea = course.course.capitalize()
 
 
-        return render_template("index.html", div2=div2, courses=courses, divisions=divisions, subjects = subjects, grades = grades)
+        return render_template("index.html", overall=overall/len(overall_list), course=coursea, overall_list = overall_list, div2=div2, courses=courses, divisions=divisions, subjects = subjects, grades = grades)
         
 @app.route("/NewCourse", methods=["GET", "POST"])
 @login_required
@@ -196,7 +203,8 @@ def addCourse():
         db.session.commit()
         return redirect("/index")
     else:
-        return render_template("newcourse.html")
+        courses = Course.query.filter_by(user_id = session["user_id"]).all()
+        return render_template("newcourse.html", courses=courses)
     
 @app.route("/add_subject", methods=["GET", "POST"])
 @login_required
@@ -224,12 +232,13 @@ def addSubject():
             db.session.commit()
         return redirect("/index")
     else:
+        courses = Course.query.filter_by(user_id = session["user_id"]).all()
         course = Course.query.filter_by(user_id = session["user_id"], selected = True).first()
         if len(course.subjects) < 1:
             return render_template("/add_subject.html")
         else:
             divisions = course.subjects[0].divisions
-            return render_template("/add_subject.html", divisions=divisions)
+            return render_template("/add_subject.html", divisions=divisions, courses=courses)
 
 @app.route("/add_division", methods=["GET", "POST"])
 @login_required
@@ -240,10 +249,14 @@ def addDivision():
         for subject in course.subjects:
             div = Division(subject_id = subject.id, division = name)
             db.session.add(div)
-        db.session.commit()
+            db.session.commit()
+            grade = Grade(division_id = div.id, grade = 0, percentage = 0)
+            db.session.add(grade)
+            db.session.commit()
         return redirect("/index")
     else:
-        return render_template("/add_division.html")
+        courses = Course.query.filter_by(user_id = session["user_id"]).all()
+        return render_template("/add_division.html", courses=courses)
     
 
 @app.route("/delete", methods=["POST"])
